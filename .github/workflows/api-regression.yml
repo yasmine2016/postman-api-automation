@@ -1,7 +1,16 @@
 name: API Regression Tests
 
 on:
+  #手工点 Run workflow
   workflow_dispatch:
+  #有代码 Push/Commit 到 main，自动执行
+  push:
+    branches:
+      - main
+  #有 PR 准备合并到 main，自动执行
+  pull_request:
+    branches:
+      - main
 
 jobs:
   run-postman-tests:
