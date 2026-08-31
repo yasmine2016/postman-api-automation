@@ -1,0 +1,18 @@
+name: API Regression Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Postman CLI
+        run: npm install -g postman-cli
+
+      - name: Login to Postman
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+
+      - name: Run API Regression Tests
+        run: postman collection run 57816734-4b573811-9fe5-406e-8573-974f87232dac -e 57816734-a0747ef0-4fe0-4e06-b703-d473ba1eb668
