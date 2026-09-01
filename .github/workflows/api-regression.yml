@@ -53,7 +53,7 @@ jobs:
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: |
           postman collection run postman/API-Automation-Demo.postman_collection.json \
-            --environment postman/QA_Test.postman_environment.json \
+            --environment postman/${TEST_ENV}.postman_environment.json \
             --env-var "testPassword=$TEST_PASSWORD" \
             -r cli,html \
             --reporter-html-export reports/api-report.html
