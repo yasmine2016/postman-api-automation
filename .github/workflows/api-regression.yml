@@ -36,6 +36,7 @@ jobs:
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: |
           echo "Password length: ${#TEST_PASSWORD}"
+          echo -n "$TEST_PASSWORD" | sha256sum
           
       - name: Run API Regression Tests
         uses: postmanlabs/postman-cli-action@v1
