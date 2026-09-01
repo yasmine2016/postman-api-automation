@@ -55,7 +55,7 @@ jobs:
         env:
           STEP_NAME: regression
         run: |
-          echo "Project: $PROJECT_NAME"
+          echo "Globl: $GLOBAL_VAR"
           echo "Environment: $TEST_ENV"
           echo "Step: $STEP_NAME"
             
