@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
         
       - name: Install Postman CLI
-        run: npm install -g postman-cli
+        run: sudo npm install -g postman-cli
 
       - name: Login to Postman
         run: postman login --with-api-key "${{ secrets.POSTMAN_API_KEY }}"
