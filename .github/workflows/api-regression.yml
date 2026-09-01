@@ -49,4 +49,19 @@ jobs:
         with:
           name: postman-api-test-report
           path: reports/api-report.html
+
+
+      - name: Show environment var
+        env:
+          STEP_NAME: regression
+        run: |
+          echo "Project: $PROJECT_NAME"
+          echo "Environment: $TEST_ENV"
+          echo "Step: $STEP_NAME"
+            
+
+
+
+
+
           
