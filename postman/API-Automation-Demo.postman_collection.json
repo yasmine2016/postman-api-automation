@@ -388,7 +388,15 @@
           "listen": "prerequest",
           "script": {
             "exec": [
-              ""
+              "const password = pm.variables.get(\"testPassword\");\r",
+              "\r",
+              "console.log(\"testPassword exists:\", !!password);\r",
+              "console.log(\"testPassword length:\", password ? password.length : 0);\r",
+              "\r",
+              "pm.test(\"testPassword is injected correctly\", function () {\r",
+              "    pm.expect(password).to.not.be.undefined;\r",
+              "    pm.expect(password.length).to.eql(10);\r",
+              "});"
             ],
             "type": "text/javascript",
             "packages": {},
