@@ -19,33 +19,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Install Postman CLI
-      #   run: npm install -g postman-cli
-
-      # - name: Login to Postman
-      #   run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
-
-      # - name: Run API Regression Tests
-      #   run: postman collection run 57816734-4b573811-9fe5-406e-8573-974f87232dac -e 57816734-a0747ef0-4fe0-4e06-b703-d473ba1eb668
       - name: Checkout repository
         uses: actions/checkout@v4
         
-      # - CHECK
-      - name: Check secret length
+      - name: Install Postman CLI
+        run: npm install -g postman-cli
+
+      - name: Login to Postman
+        run: postman login --with-api-key "${{ secrets.POSTMAN_API_KEY }}"
+ 
+      - name: Run API Regression Tests 
         env:
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         run: |
-          echo "Password length: ${#TEST_PASSWORD}"
-          echo -n "$TEST_PASSWORD" | sha256sum
-          
-      - name: Run API Regression Tests
-        uses: postmanlabs/postman-cli-action@v1
-        with:
-          #api-key: ${{ secrets.POSTMAN_API_KEY }} （collection和environment都在本地，这个是可选项，只有cloud时必须用）
-          api-key: ${{ secrets.POSTMAN_API_KEY }}
-          #command: 'collection run 57816734-4b573811-9fe5-406e-8573-974f87232dac --environment postman/QA_Test.postman_environment.json'
-          #command: 'collection run postman/API-Automation-Demo.postman_collection.json --environment postman/QA_Test.postman_environment.json -r cli,html --reporter-html-export reports/api-report.html'
-          command: 'collection run postman/API-Automation-Demo.postman_collection.json --environment postman/QA_Test.postman_environment.json --env-var "testPassword=${{ secrets.TEST_PASSWORD }}" -r cli,html --reporter-html-export reports/api-report.html'
+          postman collection run postman/API-Automation-Demo.postman_collection.json \
+            --environment postman/QA_Test.postman_environment.json \
+            --env-var "testPassword=$TEST_PASSWORD" \
+            -r cli,html \
+            --reporter-html-export reports/api-report.html
+
+      
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
