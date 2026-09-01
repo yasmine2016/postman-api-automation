@@ -29,7 +29,14 @@ jobs:
       #   run: postman collection run 57816734-4b573811-9fe5-406e-8573-974f87232dac -e 57816734-a0747ef0-4fe0-4e06-b703-d473ba1eb668
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        
+      # - CHECK
+      - name: Check secret length
+        env:
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        run: |
+          echo "Password length: ${#TEST_PASSWORD}"
+          
       - name: Run API Regression Tests
         uses: postmanlabs/postman-cli-action@v1
         with:
