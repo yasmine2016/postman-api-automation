@@ -4,6 +4,18 @@ env:
 on:
   #手工点 Run workflow
   workflow_dispatch:
+    inputs:
+      environment: 
+        description: 'Select test environment'
+        required: true
+        default: QA
+        type: choice
+        options:
+          - QA
+          - UAT
+          - PRD
+
+          
   #有代码 Push/Commit 到 main，自动执行
   push:
     branches:
@@ -25,6 +37,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Show Test Environment
+        run: |
+          echo "Selected environment: ${{ inputs.environment }}"
         
       - name: Install Postman CLI
         run: sudo npm install -g postman-cli
