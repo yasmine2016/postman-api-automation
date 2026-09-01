@@ -30,7 +30,8 @@ on:
 jobs:
   run-postman-tests:
     env: 
-      TEST_ENV: ${{ inputs.environment || 'QA' }}
+      #if: ${{ inputs.environment == 'QA'}}
+      TEST_ENV: ${{ inputs.environment}}_Test
   
     runs-on: ubuntu-latest
 
